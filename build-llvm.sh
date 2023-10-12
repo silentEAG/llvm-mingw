@@ -68,6 +68,7 @@ while [ $# -gt 0 ]; do
         ;;
     --enable-shared-libs)
         SHARE_LIBS=ON
+        LINK_DYLIB=OFF
         ;;
     *)
         PREFIX="$1"
