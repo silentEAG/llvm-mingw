@@ -274,6 +274,8 @@ if [ -z "$HOST" ] && [ "$(uname)" = "Darwin" ]; then
     fi
 fi
 
+CMAKEFLAGS="$CMAKEFLAGS  -DBUILD_SHARED_LIBS=ON"
+
 TOOLCHAIN_ONLY=ON
 if [ -n "$FULL_LLVM" ]; then
     TOOLCHAIN_ONLY=OFF
