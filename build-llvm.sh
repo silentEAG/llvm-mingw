@@ -24,6 +24,7 @@ LINK_DYLIB=ON
 ASSERTSSUFFIX=""
 LLDB=ON
 CLANG_TOOLS_EXTRA=ON
+SHARE_LIBS=OFF
 
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -64,6 +65,9 @@ while [ $# -gt 0 ]; do
         ;;
     --disable-clang-tools-extra)
         unset CLANG_TOOLS_EXTRA
+        ;;
+    --enable-shared-libs)
+        SHARE_LIBS=ON
         ;;
     *)
         PREFIX="$1"
@@ -274,8 +278,6 @@ if [ -z "$HOST" ] && [ "$(uname)" = "Darwin" ]; then
     fi
 fi
 
-CMAKEFLAGS="$CMAKEFLAGS  -DBUILD_SHARED_LIBS=ON"
-
 TOOLCHAIN_ONLY=ON
 if [ -n "$FULL_LLVM" ]; then
     TOOLCHAIN_ONLY=OFF
@@ -304,6 +306,7 @@ cmake \
     -DLLVM_TARGETS_TO_BUILD="ARM;AArch64;X86" \
     -DLLVM_INSTALL_TOOLCHAIN_ONLY=$TOOLCHAIN_ONLY \
     -DLLVM_LINK_LLVM_DYLIB=$LINK_DYLIB \
+    -DBUILD_SHARED_LIBS=$SHARE_LIBS \
     -DLLVM_TOOLCHAIN_TOOLS="llvm-ar;llvm-ranlib;llvm-objdump;llvm-rc;llvm-cvtres;llvm-nm;llvm-strings;llvm-readobj;llvm-dlltool;llvm-pdbutil;llvm-objcopy;llvm-strip;llvm-cov;llvm-profdata;llvm-addr2line;llvm-symbolizer;llvm-windres;llvm-ml;llvm-readelf;llvm-size;llvm-cxxfilt" \
     ${HOST+-DLLVM_HOST_TRIPLE=$HOST} \
     $CMAKEFLAGS \

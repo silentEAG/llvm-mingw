@@ -41,6 +41,9 @@ while [ $# -gt 0 ]; do
     --disable-make)
         NO_MAKE=1
         ;;
+    --enable-shared-libs)
+        LLVM_ARGS="$LLVM_ARGS $1"
+        ;;
     *)
         if [ -z "$NATIVE" ]; then
             NATIVE="$1"
