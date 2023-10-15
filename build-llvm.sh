@@ -16,7 +16,7 @@
 
 set -e
 
-: ${LLVM_VERSION:=llvmorg-17.0.2}
+: ${LLVM_VERSION:=rustc/17.0-2023-09-19}
 ASSERTS=OFF
 unset HOST
 BUILDDIR="build"
@@ -91,7 +91,7 @@ if [ ! -d llvm-project ]; then
     mkdir llvm-project
     cd llvm-project
     git init
-    git remote add origin https://github.com/llvm/llvm-project.git
+    git remote add origin https://github.com/rust-lang/llvm-project.git
     cd ..
     CHECKOUT=1
 fi
